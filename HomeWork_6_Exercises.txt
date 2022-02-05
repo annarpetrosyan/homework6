@@ -1,0 +1,405 @@
+// // 1
+class Rectangle {
+    constructor(length, width) {
+        this.length = length;
+        this.width = width;
+    }
+
+    get length(){
+        return this._length;
+    }
+
+    get width(){
+        return this._width;
+    }
+
+    set length(length){
+        this._length = length;
+    }
+
+    set width(width){
+        this._width = width;
+    }
+
+    getArea(){
+        return this.length * this.width;
+    }
+
+    getPerimeter(){
+        return 2 * (this.length + this.width)
+    }
+
+    toString(){
+        return JSON.stringify(this);
+    }
+
+}
+let rectangle = new Rectangle(2, 5);
+console.log(`Area of rectangle is ${rectangle.getArea()}`);
+console.log(`Perimeter of rectangle is ${rectangle.getPerimeter()}`);
+console.log(`toString method of rectangle: ${rectangle.toString()}`);
+console.log(`______________`);
+// // // Ex. 2
+class Employee {
+    constructor(id, firstName, lastName, position, salary, workingHours) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.position = position;
+        this.salary = salary;
+        this.workingHours = workingHours;
+    }
+
+    get id(){
+        return this._id;
+    }
+    set id(id){
+        this._id = id;
+    }
+
+    get firstName(){
+        return this._firstName;
+    }
+    set firstName(firstName){
+        this._firstName = firstName;
+    }
+
+    get lastName(){
+        return this._lastName;
+    }
+    set lastName(lastName){
+        this._lastName = lastName;
+    }
+
+    get position(){
+        return this._position;
+    }
+    set position(position){
+        this._position = position;
+    }
+
+    get salary(){
+        return this._salary;
+    }
+    set salary(salary){
+        this._salary = salary;
+    }
+
+    get workingHours(){
+        return this._workingHours;
+    }
+    set workingHours(workingHours){
+        this._workingHours = workingHours;
+    }
+
+    getFullName(){
+        return `${this.firstName} ${this.lastName}`;
+    }
+
+    getAnnularSalary(){
+        return 12 * this.salary;
+    }
+
+    raiseSalary(percent){
+        this.salary = this.salary + (this.salary * percent)/ 100;
+    }
+
+}
+
+let employee = new Employee(2, "Anna", "Petrosyan", "QA", 10, 8);
+console.log(`Employee fullname is ${employee.getFullName()}`);
+console.log(`Annual salary of employee is ${employee.getAnnularSalary()}`);
+employee.raiseSalary(50);
+console.log(`Annual salary after rise is ${employee.getAnnularSalary()}`);
+console.log(`______________`);
+// // // Ex 3
+class Author {
+    gender;
+
+    constructor(name, email, gender) {
+        this.name = name;
+        this.email = email;
+        this.gender = gender;
+    }
+
+    get name(){
+        return this._name;
+    }
+
+    set name(name){
+        this._name = name;
+    }
+
+    get email(){
+        return this._email;
+    }
+
+    set email(email){
+        this._email = email;
+    }
+
+    get gender(){
+        return this.gender;
+    }
+
+    toString(){
+        return JSON.stringify(this);
+    }
+}
+class Book {
+    constructor(title, price, quantity, Author) {
+        this.title = title;
+        this.price = price;
+        this.quantity = quantity;
+        this.author = Author;
+    }
+
+    get title(){
+        return this._title;
+    }
+    set title(title){
+        this._title = title;
+    }
+
+    get price(){
+        return this._price;
+    }
+    set price(price){
+        this._price = price;
+    }
+
+    get quantity(){
+        return this._quantity;
+    }
+    set quantity(quantity){
+        this._quantity = quantity;
+    }
+
+    getProfit(){
+        return this.quantity * this.price;
+    }
+
+    toString(){
+        return JSON.stringify(this);
+    }
+
+}
+let author = new Author("Anna", "annarpetrosyan@gmail.com", "female");
+console.log(author.toString());
+let newAuthor = new Author("Junietta", "aaa.aa@aa", "female");
+let book1 = new Book("Jane Eyre", 5000, 20, author);
+let book2 = new Book("New Author", 5000, 20, newAuthor);
+console.log(book1.getProfit());
+console.log(book2.getProfit());
+console.log(book1.toString());
+console.log(book2.toString());
+console.log(`______________`);
+// // // 4
+class Account {
+    id;
+
+    constructor(id, name, balance) {
+        this.id = id;
+        this.name = name;
+        this.balance = balance;
+    }
+
+    set name(name){
+        this._name = name;
+    }
+
+    set balance(balance){
+        this._balance = balance;
+    }
+
+    get name(){
+        return this._name;
+    }
+
+    get balance(){
+        return this._balance;
+    }
+
+    get id(){
+        return this.id;
+    }
+
+    credit(amount){
+        this.balance += amount;
+        return this.balance;
+    }
+
+    debit(amount) {
+        if (amount < this.balance){
+            this.balance -= amount;
+            return this.balance;
+        }else {
+            return 'Amount exceeded balance.';
+        }
+    }
+
+    transferTo(account, amount){
+        if (amount < this.balance){
+            this.balance -= amount;
+            account.balance += amount;
+        }else {
+            return 'Amount exceeded balance.';
+        }
+    }
+
+    static identifyAccounts(accountFirst, accountSecond){
+        if (accountFirst.id === accountSecond.id &&
+            accountFirst.name === accountSecond.name &&
+            accountFirst.balance === accountSecond.balance
+        ){
+            return `Yes! Two accounts are equal.`;
+        }else {
+            return `No! Two accounts are not equal.`;
+        }
+    }
+}
+let user1 = new Account(1122, 'Anna', 120);
+console.log(user1);
+let user = new Account(12, 'Anna', 120);
+console.log(user);
+console.log(user.credit(100));
+console.log(user);
+console.log(user.debit(100000));
+console.log(user);
+console.log(`user balance: ${user.balance}`);
+console.log(`user1 balance: ${user1.balance}`);
+user.transferTo(user1, 50);
+console.log(`user balance: ${user.balance}`);
+console.log(`user1 balance: ${user1.balance}`);
+console.log(Account.identifyAccounts(user1, user));
+let user3 = new Account(3, 'A', 3);
+let user33 = new Account(3, 'A', 3);
+console.log(Account.identifyAccounts(user3, user33));
+console.log(`______________`);
+// // // 5
+class Person{
+    gender;
+
+    constructor(firstName, lastName, gender, age) {
+        this.fistName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.age = age;
+    }
+
+    get fistName(){
+        return this._fistName;
+    }
+    set fistName(fistName){
+        this._fistName = fistName;
+    }
+
+    get lastName(){
+        return this._lastName;
+    }
+    set lastName(lastName){
+        this._lastName = lastName;
+    }
+
+    get age(){
+        return this._age;
+    }
+    set age(age){
+        this._age = age;
+    }
+
+    toString(){
+        return JSON.stringify(this);
+    }
+
+}
+
+class Student extends Person{
+    passedExams = {};
+    grade = 0;
+
+    constructor(programs, year, fee) {
+        super();
+        this.programs = programs;
+        this.year = year;
+        this.fee = fee;
+        for (let i = 0; i < programs.length; i++){
+            this.passedExams[programs[i]] = false;
+        }
+    }
+
+    get programs(){
+        return this._programs;
+    }
+    set programs(programs){
+        this._programs = programs;
+    }
+
+    get year(){
+        return this._year;
+    }
+    set year(year){
+        this._year = year;
+    }
+
+    get fee(){
+        return this._fee;
+    }
+    set fee(fee){
+        this._fee = fee;
+    }
+
+    toString(){
+        return super.toString();
+    }
+
+    passExam(program, score){
+        if (score >= 50){
+            this.passedExams[program] = true
+        }
+        let obj = this.passedExams;
+        let isAllTrue = Object.keys(obj).every(function(key){ return obj[key] === true });
+        if (isAllTrue)
+            this.grade = this.grade + 1;
+    }
+
+}
+
+class Teacher extends Person{
+    constructor(program, pay) {
+        super();
+        this.program = program;
+        this.pay = pay;
+    }
+
+    get program(){
+        return this._program;
+    }
+    set program(program){
+        this._program = program;
+    }
+
+    get pay(){
+        return this._pay;
+    }
+    set pay(pay){
+        this._pay = pay;
+    }
+
+    toString(){
+        return super.toString();
+    }
+
+}
+let person = new Person("Anna", "Petrosyan", "female", 30)
+console.log(person.toString());
+let teacher = new Teacher("English", 10)
+console.log(teacher.toString());
+let programs = ['p1', 'p2', 'p3'];
+let student = new Student(programs, 2022, 2000)
+console.log(student.toString());
+student.passExam("p1", 60);
+student.passExam("p2", 60);
+console.log(student.toString());
+student.passExam("p3", 60);
+console.log(student.toString());
