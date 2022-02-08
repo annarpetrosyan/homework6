@@ -358,7 +358,7 @@ class Student extends Person {
     }
 
     passExam(program, grade){
-        if (grade >= 50){
+        if (grade >= 50 && this.passedExams.hasOwnProperty(program)){
             this.passedExams[program] = true
         }
         let obj = this.passedExams;
