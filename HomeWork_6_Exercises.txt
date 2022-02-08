@@ -112,9 +112,8 @@ console.log(`Annual salary of employee is ${employee.getAnnularSalary()}`);
 employee.raiseSalary(50);
 console.log(`Annual salary after rise is ${employee.getAnnularSalary()}`);
 console.log(`______________`);
-// // // Ex 3
+// // Ex 3
 class Author {
-    gender;
 
     constructor(name, email, gender) {
         this.name = name;
@@ -136,10 +135,6 @@ class Author {
 
     set email(email){
         this._email = email;
-    }
-
-    get gender(){
-        return this.gender;
     }
 
     toString(){
@@ -196,7 +191,6 @@ console.log(book2.toString());
 console.log(`______________`);
 // // // 4
 class Account {
-    id;
 
     constructor(id, name, balance) {
         this.id = id;
@@ -221,9 +215,12 @@ class Account {
     }
 
     get id(){
-        return this.id;
+        return this._id;
     }
 
+    set id(id){
+        this._id = id;
+    }
     credit(amount){
         this.balance += amount;
         return this.balance;
@@ -240,7 +237,7 @@ class Account {
 
     transferTo(account, amount){
         if (amount < this.balance){
-            this.balance -= amount;
+            this.debit(amount)
             account.balance += amount;
         }else {
             return 'Amount exceeded balance.';
@@ -278,7 +275,6 @@ console.log(Account.identifyAccounts(user3, user33));
 console.log(`______________`);
 // // // 5
 class Person{
-    gender;
 
     constructor(firstName, lastName, gender, age) {
         this.fistName = firstName;
@@ -314,15 +310,20 @@ class Person{
 
 }
 
-class Student extends Person{
+class Student extends Person {
     passedExams = {};
-    grade = 0;
+    year = 0;
 
     constructor(programs, year, fee) {
         super();
         this.programs = programs;
         this.year = year;
         this.fee = fee;
+        this.prepareStudentProgram(programs);
+    }
+
+    prepareStudentProgram(programs){
+        this.passedExams = {};
         for (let i = 0; i < programs.length; i++){
             this.passedExams[programs[i]] = false;
         }
@@ -333,7 +334,7 @@ class Student extends Person{
     }
     set programs(programs){
         if (Array.isArray(programs)){
-            this._programs = programs;
+            this.prepareStudentProgram(programs);
         }else {
             throw Error(`Invalid programs type.`)
         }
@@ -357,14 +358,14 @@ class Student extends Person{
         return super.toString();
     }
 
-    passExam(program, score){
-        if (score >= 50){
+    passExam(program, grade){
+        if (grade >= 50){
             this.passedExams[program] = true
         }
         let obj = this.passedExams;
         let isAllTrue = Object.keys(obj).every(function(key){ return obj[key] === true });
         if (isAllTrue)
-            this.grade = this.grade + 1;
+            this.year = this.year + 1;
     }
 
 }
@@ -408,6 +409,11 @@ let student = new Student(programs, 2022, 2000)
 console.log(student.toString());
 student.passExam("p1", 60);
 student.passExam("p2", 60);
-console.log(student.toString());
 student.passExam("p3", 60);
+console.log(student.toString());
+// change programs
+student.programs = ['p4', 'p5'];
+console.log(student.toString());
+student.passExam("p4", 60);
+student.passExam("p5", 60);
 console.log(student.toString());
