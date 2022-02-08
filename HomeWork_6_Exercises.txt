@@ -312,7 +312,6 @@ class Person{
 
 class Student extends Person {
     passedExams = {};
-    year = 0;
 
     constructor(programs, year, fee) {
         super();
